@@ -1,5 +1,5 @@
 // const API_URL = "http://localhost:3000";
-const API_URL = "https://lunchbox-overripe-heroism.ngrok-free.dev/";
+const API_URL = "https://lunchbox-overripe-heroism.ngrok-free.dev";
 
 document.getElementById("loginForm").addEventListener("submit", async function (e) {
   e.preventDefault();

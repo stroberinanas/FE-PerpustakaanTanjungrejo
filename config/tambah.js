@@ -1,5 +1,5 @@
 // const API_URL = "http://localhost:3000";
-const API_URL = "https://lunchbox-overripe-heroism.ngrok-free.dev/";
+const API_URL = "https://lunchbox-overripe-heroism.ngrok-free.dev";
 
 const form = document.getElementById("tambahForm");
 const message = document.getElementById("message");
