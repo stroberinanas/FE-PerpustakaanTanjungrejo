@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:3000";
+// const API_URL = "http://localhost:3000";
+const API_URL = "https://lunchbox-overripe-heroism.ngrok-free.dev/";
 const form = document.getElementById("pinjamForm");
 const message = document.getElementById("message");
 const bookDetailDiv = document.getElementById("bookDetail");
