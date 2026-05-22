@@ -1,38 +1,32 @@
 {
-    "routes": [
+    "rewrites": [
         {
-            "src": "/",
-            "dest": "/index.html",
-            "rewrites": [
-                {
-                    "source": "/",
-                    "destination": "/pages/home.html"
-                },
-                {
-                    "source": "/login",
-                    "destination": "/pages/login.html"
-                },
-                {
-                    "source": "/dashboard",
-                    "destination": "/pages/dashboard.html"
-                },
-                {
-                    "source": "/tambah",
-                    "destination": "/pages/tambah.html"
-                },
-                {
-                    "source": "/history",
-                    "destination": "/pages/history.html"
-                },
-                {
-                    "source": "/edit",
-                    "destination": "/pages/edit.html"
-                },
-                {
-                    "source": "/pinjam",
-                    "destination": "/pages/pinjam.html"
-                }
-            ]
+            "source": "/",
+            "destination": "/pages/home.html"
+        },
+        {
+            "source": "/login",
+            "destination": "/pages/login.html"
+        },
+        {
+            "source": "/dashboard",
+            "destination": "/pages/dashboard.html"
+        },
+        {
+            "source": "/tambah",
+            "destination": "/pages/tambah.html"
+        },
+        {
+            "source": "/history",
+            "destination": "/pages/history.html"
+        },
+        {
+            "source": "/edit",
+            "destination": "/pages/edit.html"
+        },
+        {
+            "source": "/pinjam",
+            "destination": "/pages/pinjam.html"
         }
     ]
 }
