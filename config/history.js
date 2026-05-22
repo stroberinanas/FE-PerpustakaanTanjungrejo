@@ -13,10 +13,15 @@ async function requireAdminSession() {
     window.location.href = "/login";
     throw new Error("Unauthorized");
   }
-  const res = await fetch(
-    `${API_URL}/admin/history`,
-    { method: "GET", headers: { Authorization: "Bearer " + token } }
+  const res = await fetch(`${API_URL}/books`,
+    {
+      headers: {
+        "ngrok-skip-browser-warning": "true"
+      }, method: "GET", headers: { Authorization: "Bearer " + token }
+    }
+
   );
+
   if (res.status === 401 || res.status === 403) {
     localStorage.removeItem("adminToken");
     window.location.href = "/login";
@@ -45,7 +50,11 @@ async function kembalikan(id) {
     try {
       const token = getToken();
       const res = await fetch(
-        `${API_URL}/admin/history/${id}`,
+        `${API_URL}/admin/history/${id}`, {
+        headers: {
+          "ngrok-skip-browser-warning": "true"
+        },
+      },
         {
           method: "PUT",
           headers: { Authorization: "Bearer " + token },
