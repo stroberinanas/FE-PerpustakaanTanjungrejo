@@ -39,9 +39,11 @@ function normalizeCategory(category) {
 
 async function fetchBooks() {
     try {
-        const res = await fetch(
-            `${API_URL}/books`
-        );
+        const res = await fetch(`${API_URL}/books`, {
+            headers: {
+                "ngrok-skip-browser-warning": "true"  
+            }
+        });
         const data = await res.json();
 
         allBooks = data;
