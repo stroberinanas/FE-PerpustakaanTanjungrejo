@@ -25,11 +25,6 @@ async function requireAdminSession() {
   const res = await fetch(
     `${API_URL}/admin/books`,
     {
-      headers: {
-        "ngrok-skip-browser-warning": "true"
-      }
-    },
-    {
       method: "GET",
       headers: { Authorization: "Bearer " + token },
     }
@@ -51,11 +46,7 @@ async function fetchBook() {
     const token = getToken();
     const res = await fetch(
       `${API_URL}/admin/books/${id_buku}`,
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "true"
-        },
-      },
+
       { headers: { Authorization: "Bearer " + token } }
     );
 

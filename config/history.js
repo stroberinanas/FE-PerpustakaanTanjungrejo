@@ -50,11 +50,7 @@ async function kembalikan(id) {
     try {
       const token = getToken();
       const res = await fetch(
-        `${API_URL}/admin/history/${id}`, {
-        headers: {
-          "ngrok-skip-browser-warning": "true"
-        },
-      },
+        `${API_URL}/admin/history/${id}`,
         {
           method: "PUT",
           headers: { Authorization: "Bearer " + token },

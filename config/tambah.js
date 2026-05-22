@@ -27,11 +27,6 @@ async function requireAdminSession() {
   const res = await fetch(
     `${API_URL}/admin/books`,
     {
-      headers: {
-        "ngrok-skip-browser-warning": "true"
-      }
-    },
-    {
       method: "GET",
       headers: { Authorization: "Bearer " + token },
     }
@@ -53,11 +48,6 @@ async function fetchBooks() {
     const token = getToken();
     const res = await fetch(
       `${API_URL}/admin/books`,
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "true"
-        },
-      },
       { method: "GET", headers: { Authorization: "Bearer " + token } }
     );
     if (res.status === 401 || res.status === 403) {
@@ -142,11 +132,6 @@ form.addEventListener("submit", async (e) => {
   try {
     const res = await fetch(
       `${API_URL}/admin/books`,
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "true"
-        }
-      },
       {
         method: "POST",
         headers: {

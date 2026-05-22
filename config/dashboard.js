@@ -111,11 +111,6 @@ async function fetchKategori() {
     const token = getToken();
     const res = await fetch(
       `${API_URL}/admin/categories`,
-      {
-        headers: {
-          "ngrok-skip-browser-warning": "true"
-        },
-      },
       { headers: { Authorization: "Bearer " + token } }
     );
     if (res.status === 401 || res.status === 403) {
@@ -152,11 +147,6 @@ async function hapusBuku(id) {
       const token = getToken();
       const res = await fetch(
         `${API_URL}/admin/books/${id}`,
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "true"
-          }
-        },
         {
           method: "DELETE",
           headers: { Authorization: "Bearer " + token },

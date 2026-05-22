@@ -19,11 +19,6 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     const res = await fetch(
       `${API_URL}/admin/login`,
       {
-        headers: {
-          "ngrok-skip-browser-warning": "true"
-        },
-      },
-      {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
