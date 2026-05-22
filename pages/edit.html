@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Buku</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #faf5ef 0%, #faf5ef 100%);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      color: #2c3e50;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem 1rem;
+    }
+
+    .form-wrapper {
+      background: #fff8f0;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 500px;
+      border-top: 6px solid #2563eb;
+    }
+
+    .form-wrapper h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #2563eb;
+      font-size: 1.8rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      background-color: #fff;
+      transition: all 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #2563eb;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    }
+
+    button[type="submit"],
+    .back-btn {
+      background: linear-gradient(90deg, #2563eb 60%, #60a5fa 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 18px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+    }
+
+    button[type="submit"]:hover,
+    .back-btn:hover {
+      background: linear-gradient(90deg, #1741a6 60%, #2563eb 100%);
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    #message {
+      text-align: center;
+      color: #dc2626;
+      min-height: 1.2em;
+    }
+
+    .back-btn {
+      margin-top: 1.2rem;
+      width: 100%;
+    }
+
+    footer {
+      background: linear-gradient(135deg, #1a237e 0%, #000000 100%);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+
+    footer img {
+      width: 60px;
+      height: 60px;
+      margin: 0 20px;
+      vertical-align: middle;
+      border-radius: 50%;
+      border: 3px solid white;
+      transition: transform 0.3s ease;
+    }
+
+    footer img:hover {
+      transform: scale(1.1);
+    }
+
+    footer span {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      vertical-align: middle;
+      display: inline-block;
+      margin: 12px 0;
+    }
+
+    @media (max-width: 600px) {
+      .form-wrapper {
+        padding: 20px;
+        margin: 16px;
+      }
+
+      footer {
+        padding: 1.5rem;
+      }
+
+      footer img {
+        width: 50px;
+        height: 50px;
+        margin: 0 10px;
+      }
+
+      footer span {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+    <div class="form-wrapper">
+      <h2>Edit Buku</h2>
+      <form id="editForm">
+        <div class="form-group">
+          <label for="judul">Judul</label>
+          <input type="text" id="judul" required />
+        </div>
+
+        <div class="form-group">
+          <label for="penulis">Penulis</label>
+          <input type="text" id="penulis" required />
+        </div>
+
+        <div class="form-group">
+          <label for="penerbit">Penerbit</label>
+          <input type="text" id="penerbit" required />
+        </div>
+
+        <div class="form-group">
+          <label for="tahun_terbit">Tahun Terbit</label>
+          <input type="number" id="tahun_terbit" min="1" required />
+        </div>
+
+        <div class="form-group">
+          <label for="jumlah_halaman">Jumlah Halaman</label>
+          <input type="number" id="jumlah_halaman" min="1" required />
+        </div>
+
+        <div class="form-group">
+          <label for="kategori">Kategori</label>
+          <select id="kategori" required>
+            <option value="">Pilih Kategori</option>
+            <option value="Novel">Novel</option>
+            <option value="Anak-Anak">Anak-Anak</option>
+            <option value="Islami">Islami</option>
+            <option value="Pengetahuan">Pengetahuan</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="stok">Stok</label>
+          <input type="number" id="stok" min="1" required />
+        </div>
+
+        <div class="form-group">
+          <label for="link_gambar">Link Gambar</label>
+          <input type="text" id="link_gambar" />
+        </div>
+
+        <button type="submit">Simpan Perubahan</button>
+      </form>
+
+      <p id="message"></p>
+      <button class="back-btn" onclick="window.location.href='/dashboard'">Kembali ke Dashboard</button>
+    </div>
+  </main>
+
+  <footer>
+    <img src="../images/logo1.png" alt="Logo 1" />
+    <span>KKN AA.83.095 DAN KKN AA.83.096</span>
+    <img src="../images/logo2.png" alt="Logo 2" />
+  </footer>
+
+
+  <script src="../config/edit.js"></script>
+</body>
+
+</html>

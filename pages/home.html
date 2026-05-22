@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perpustakaan Tanjungrejo</title>
+    <meta name="description"
+        content="Website resmi Perpustakaan Desa Tanjungrejo. Jelajahi koleksi buku digital yang menarik dan bermanfaat untuk masyarakat Tanjungrejo dan sekitarnya.">
+    <meta name="keywords"
+        content="Perpustakaan Tanjungrejo, Tanjungrejo, Buku Digital, Perpustakaan Desa, Buku Online, Tanjungrejo Library">
+    <meta name="author" content="Tim KKN AA.83.095 dan AA.83.096">
+    <!-- <link rel="canonical" href="https://perpustakaantanjungrejo.com/" /> -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #faf5ef 0%, #faf5ef 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(26, 35, 126, 0.1);
+        }
+
+        .header-section h2 {
+            font-size: 2.5rem;
+            color: #1a237e;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .header-section h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #1a237e, #3949ab);
+            border-radius: 2px;
+        }
+
+        .header-section p {
+            font-size: 1.1rem;
+            color: #5d4037;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(26, 35, 126, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 35, 126, 0.4);
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .filter-section {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-tab {
+            background: white;
+            border: 2px solid #1a237e;
+            color: #1a237e;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(26, 35, 126, 0.1);
+        }
+
+        .filter-tab:hover {
+            background: #1a237e;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.3);
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(135deg, #1a237e 0%, #3949ab 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(26, 35, 126, 0.3);
+        }
+
+        .books-section {
+            margin-bottom: 4rem;
+        }
+
+        .category-section {
+            margin-bottom: 3rem;
+            display: none;
+        }
+
+        .category-section.active {
+            display: block;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: #1a237e;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-title::before {
+            content: attr(data-icon);
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .books-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(26, 35, 126, 0.1);
+            position: relative;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-img-wrap {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #f6eee2 0%, #f6eee2 100%);
+        }
+
+        .book-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .book-card:hover .book-img {
+            transform: scale(1.05);
+        }
+
+        .book-info {
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .book-title {
+            font-size: 1.3rem;
+            color: #1a237e;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .book-meta {
+            margin-bottom: 1rem;
+            color: #5d4037;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .book-meta span {
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .book-meta b {
+            color: #1a237e;
+            font-weight: 600;
+        }
+
+        .book-stock-badge {
+            display: inline-block;
+            padding: 6px 15px;
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(46, 125, 50, 0.3);
+        }
+
+        .book-stock-badge.out {
+            background: linear-gradient(135deg, #c62828 0%, #f44336 100%);
+            box-shadow: 0 2px 8px rgba(198, 40, 40, 0.3);
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(26, 35, 126, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a237e;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #5d4037;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #1a237e 0%, #000000 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        footer img {
+            width: 60px;
+            height: 60px;
+            margin: 0 20px;
+            vertical-align: middle;
+            border-radius: 50%;
+            border: 3px solid white;
+            transition: transform 0.3s ease;
+        }
+
+        footer img:hover {
+            transform: scale(1.1);
+        }
+
+        footer span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            vertical-align: middle;
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            font-size: 1.2rem;
+            color: #1a237e;
+        }
+
+        .error-message {
+            color: #c62828;
+            text-align: center;
+            background: rgba(244, 67, 54, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(198, 40, 40, 0.3);
+            margin: 2rem 0;
+        }
+
+        .empty-category {
+            text-align: center;
+            color: #5d4037;
+            font-size: 1.1rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            border: 2px dashed #1a237e;
+            margin: 2rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1rem;
+            }
+
+            .header-section h2 {
+                font-size: 2rem;
+            }
+
+            .filter-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .filter-tab {
+                width: 200px;
+            }
+
+            .books-card-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .book-card {
+                margin: 0 auto;
+                max-width: 350px;
+            }
+
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            footer {
+                margin-top: 2rem;
+            }
+
+            footer img {
+                width: 50px;
+                height: 50px;
+                margin: 0 10px;
+            }
+
+            footer span {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Animasi untuk loading */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .book-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <div class="header-section">
+            <h2>Perpustakaan Tanjungrejo</h2>
+            <p>Jelajahi koleksi buku terbaik untuk memperkaya pengetahuan Anda</p>
+            <button class="login-btn" onclick="window.location.href='/login'">
+                Login Admin
+            </button>
+            <div style="margin: 1.5rem auto 0 auto; max-width: 400px">
+                <input id="searchInput" type="text" placeholder="Cari buku (judul, penulis, penerbit)..." style="
+              width: 100%;
+              padding: 12px 16px;
+              border-radius: 10px;
+              border: 1.5px solid #ccc;
+              font-size: 1rem;
+            " />
+            </div>
+        </div>
+
+        <div class="stats-section" id="statsSection">
+            <div class="stat-card">
+                <div class="stat-number" id="totalBooks">0</div>
+                <div class="stat-label">Total Buku</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalCategories">0</div>
+                <div class="stat-label">Kategori</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="availableBooks">0</div>
+                <div class="stat-label">Buku Tersedia</div>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-tabs" id="filterTabs">
+                <div class="filter-tab active" data-category="all">Semua Buku</div>
+            </div>
+        </div>
+
+        <div class="books-section" id="booksSection">
+            <div class="loading-spinner">
+                <div>📚 Memuat koleksi buku...</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <img src="../images/logo1.png" alt="KKN AA.83.095" />
+        <span>KKN AA.83.095 DAN KKN AA.83.096</span>
+
+        <img src="../images/logo2.png" alt="KKN AA.83.096" />
+    </footer>
+
+    <script src="../config/home.js"></script>
+</body>
+
+</html>

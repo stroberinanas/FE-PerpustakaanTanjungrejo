@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Admin - Perpustakaan Tanjungrejo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dashboard-container {
+      flex: 1 0 auto;
+    }
+
+    footer {
+      flex-shrink: 0;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #faf5ef 0%, #faf5ef 100%);
+      min-height: 100vh;
+      color: #2c3e50;
+      line-height: 1.6;
+    }
+
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 48px auto 100px auto;
+      background: #f6eee2;
+      padding: 32px 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(37, 99, 235, 0.08),
+        0 1.5px 6px rgba(0, 0, 0, 0.04);
+      border-top: 6px solid #2563eb;
+    }
+
+    .header-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    h2 {
+      color: #2563eb;
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-size: 1.8rem;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: linear-gradient(90deg, #2563eb 60%, #60a5fa 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 18px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin: 2px 0;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #1741a6 60%, #2563eb 100%);
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    .btn-danger {
+      background: linear-gradient(90deg,
+          #dc2626 60%,
+          #ef4444 100%) !important;
+    }
+
+    .btn-danger:hover {
+      background: linear-gradient(90deg,
+          #b91c1c 60%,
+          #dc2626 100%) !important;
+    }
+
+    .btn-edit {
+      background: linear-gradient(90deg,
+          #059669 60%,
+          #10b981 100%) !important;
+      font-size: 0.8rem;
+      padding: 6px 12px;
+    }
+
+    .btn-edit:hover {
+      background: linear-gradient(90deg,
+          #047857 60%,
+          #059669 100%) !important;
+    }
+
+    .btn-delete {
+      background: linear-gradient(90deg,
+          #dc2626 60%,
+          #ef4444 100%) !important;
+      font-size: 0.8rem;
+      padding: 6px 12px;
+    }
+
+    .btn-delete:hover {
+      background: linear-gradient(90deg,
+          #b91c1c 60%,
+          #dc2626 100%) !important;
+    }
+
+    .btn-pinjam {
+      background: linear-gradient(90deg,
+          #7c3aed 60%,
+          #8b5cf6 100%) !important;
+      font-size: 0.8rem;
+      padding: 6px 12px;
+    }
+
+    .btn-pinjam:hover {
+      background: linear-gradient(90deg,
+          #6d28d9 60%,
+          #7c3aed 100%) !important;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.06);
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: "Poppins", sans-serif;
+      font-size: 0.9rem;
+      min-width: 800px;
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      background: linear-gradient(90deg, #2563eb 60%, #60a5fa 100%);
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 1px;
+      z-index: 2;
+      padding: 16px 12px;
+      text-align: center;
+    }
+
+    table th,
+    table td {
+      border: 1px solid #e0e0e0;
+      padding: 12px 8px;
+      text-align: center;
+    }
+
+    table tr:nth-child(even) {
+      background: #f6f5ef;
+    }
+
+    table tr:hover {
+      background: #e0e7ff;
+      transition: background 0.2s;
+    }
+
+    .book-img {
+      width: 60px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-title {
+      font-weight: 600;
+      color: #2563eb;
+      max-width: 200px;
+      word-wrap: break-word;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .stats-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.06);
+      border: 1px solid #e0e7ff;
+      transition: transform 0.2s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #2563eb;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: #64748b;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: #2563eb;
+      font-size: 1.1rem;
+    }
+
+    .error {
+      text-align: center;
+      padding: 2rem;
+      color: #dc2626;
+      background: #fef2f2;
+      border-radius: 8px;
+      border: 1px solid #fecaca;
+      margin: 1rem 0;
+    }
+
+    footer {
+      background: linear-gradient(135deg, #1a237e 0%, #000000 100%);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    footer img {
+      width: 60px;
+      height: 60px;
+      margin: 0 20px;
+      vertical-align: middle;
+      border-radius: 50%;
+      border: 3px solid white;
+      transition: transform 0.3s ease;
+    }
+
+    footer img:hover {
+      transform: scale(1.1);
+    }
+
+    footer span {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      vertical-align: middle;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .dashboard-container {
+        margin: 20px;
+        padding: 20px 16px;
+      }
+
+      .header-section {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-group {
+        justify-content: center;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+
+      .stats-section {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .action-buttons button {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+      }
+
+      footer {
+        margin-top: 2rem;
+      }
+
+      footer img {
+        width: 50px;
+        height: 50px;
+        margin: 0 10px;
+      }
+
+      footer span {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-section {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <div class="header-section">
+      <h2>Dashboard Admin - Data Buku</h2>
+      <div class="btn-group">
+        <button onclick="window.location.href='/tambah'">
+          + Tambah Buku
+        </button>
+        <button onclick="window.location.href='/history'">
+          📋 Riwayat Peminjaman
+        </button>
+        <button onclick="logout()" class="btn-danger">🚪 Logout</button>
+      </div>
+    </div>
+    <div style="
+          margin-bottom: 16px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          align-items: center;
+        ">
+      <div style="flex: 1; min-width: 220px">
+        <input id="searchInput" type="text" placeholder="Cari buku (judul, penulis, penerbit)..." style="
+              width: 100%;
+              padding: 10px 14px;
+              border-radius: 8px;
+              border: 1px solid #ccc;
+              font-size: 1rem;
+            " />
+      </div>
+    </div>
+
+    <div class="stats-section" id="statsSection">
+      <div class="stat-card">
+        <div class="stat-number" id="totalBooks">0</div>
+        <div class="stat-label">Total Buku</div>
+        <div style="font-size: 0.92em; color: #888; margin-top: 2px">
+          Jumlah judul buku unik
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="availableBooks">0</div>
+        <div class="stat-label">Buku Tersedia</div>
+        <div style="font-size: 0.92em; color: #888; margin-top: 2px">
+          Judul buku dengan stok &gt; 0
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="outOfStock">0</div>
+        <div class="stat-label">Stok Habis</div>
+        <div style="font-size: 0.92em; color: #888; margin-top: 2px">
+          Judul buku dengan stok 0
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="totalStock">0</div>
+        <div class="stat-label">Total Stok</div>
+        <div style="font-size: 0.92em; color: #888; margin-top: 2px">
+          Jumlah seluruh eksemplar buku
+        </div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Gambar</th>
+            <th>Judul</th>
+            <th>Penulis</th>
+            <th>Penerbit</th>
+            <th>Tahun</th>
+            <th>Stok</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="booksTableBody">
+          <tr>
+            <td colspan="7" class="loading">📚 Memuat data buku...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <img src="../images/logo1.png" alt="KKN AA.83.095" />
+    <span>KKN AA.83.095 DAN KKN AA.83.096</span>
+    <img src="../images/logo2.png" alt="KKN AA.83.096" />
+  </footer>
+
+  <script src="../config/dashboard.js"></script>
+</body>
+
+</html>
