@@ -5,6 +5,15 @@ const tableBody = document.getElementById("booksTableBody");
 let allBooks = [];
 let kategoriList = [];
 
+// CORS bypass (ngrok)
+const isVercel = window.location.hostname.includes('vercel.app');
+
+function getFetchHeaders(extraHeaders = {}) {
+  return {
+    ...extraHeaders,
+    ...(isVercel ? { "ngrok-skip-browser-warning": "true" } : {})
+  };
+}
 
 // Helper: Ambil token
 function getToken() {
@@ -21,15 +30,11 @@ async function requireAdminSession() {
   const res = await fetch(
     `${API_URL}/admin/books`,
     {
-      headers: {
-        "ngrok-skip-browser-warning": "true"
-      },
-    },
-    {
       method: "GET",
-      headers: { Authorization: "Bearer " + token },
+      headers: getFetchHeaders({ Authorization: "Bearer " + token }),
     }
   );
+
 
   if (res.status === 401 || res.status === 403) {
     localStorage.removeItem("adminToken");
@@ -111,8 +116,10 @@ async function fetchKategori() {
     const token = getToken();
     const res = await fetch(
       `${API_URL}/admin/categories`,
-      { headers: { Authorization: "Bearer " + token } }
-    );
+      {
+        headers: getFetchHeaders({ Authorization: "Bearer " + token }),
+      });
+
     if (res.status === 401 || res.status === 403) {
       window.location.href = "/login";
       return;
@@ -149,7 +156,7 @@ async function hapusBuku(id) {
         `${API_URL}/admin/books/${id}`,
         {
           method: "DELETE",
-          headers: { Authorization: "Bearer " + token },
+          headers: getFetchHeaders({ Authorization: "Bearer " + token }),
         }
       );
       if (res.status === 401 || res.status === 403) {

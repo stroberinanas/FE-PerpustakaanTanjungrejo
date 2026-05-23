@@ -14,6 +14,16 @@ const inputGambar = document.getElementById("link_gambar");
 
 let allBooks = [];
 
+// CORS bypass (ngrok)
+const isVercel = window.location.hostname.includes('vercel.app');
+
+function getFetchHeaders(extraHeaders = {}) {
+  return {
+    ...extraHeaders,
+    ...(isVercel ? { "ngrok-skip-browser-warning": "true" } : {})
+  };
+}
+
 function getToken() {
   return localStorage.getItem("adminToken");
 }
@@ -28,7 +38,7 @@ async function requireAdminSession() {
     `${API_URL}/admin/books`,
     {
       method: "GET",
-      headers: { Authorization: "Bearer " + token },
+      headers: getFetchHeaders({ Authorization: "Bearer " + token }),
     }
   );
   if (res.status === 401 || res.status === 403) {
@@ -48,7 +58,10 @@ async function fetchBooks() {
     const token = getToken();
     const res = await fetch(
       `${API_URL}/admin/books`,
-      { method: "GET", headers: { Authorization: "Bearer " + token } }
+      {
+        method: "GET",
+        headers: getFetchHeaders({ Authorization: "Bearer " + token }),
+      }
     );
     if (res.status === 401 || res.status === 403) {
       window.location.href = "/login";
@@ -134,10 +147,10 @@ form.addEventListener("submit", async (e) => {
       `${API_URL}/admin/books`,
       {
         method: "POST",
-        headers: {
+        headers: getFetchHeaders({
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
-        },
+        }),
         body: JSON.stringify(dataBuku),
       }
     );

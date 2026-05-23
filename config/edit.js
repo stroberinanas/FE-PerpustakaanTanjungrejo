@@ -6,6 +6,16 @@ const message = document.getElementById("message");
 const urlParams = new URLSearchParams(window.location.search);
 const id_buku = urlParams.get("id");
 
+// CORS bypass (ngrok)
+const isVercel = window.location.hostname.includes('vercel.app');
+
+function getFetchHeaders(extraHeaders = {}) {
+  return {
+    ...extraHeaders,
+    ...(isVercel ? { "ngrok-skip-browser-warning": "true" } : {})
+  };
+}
+
 function getToken() {
   return localStorage.getItem("adminToken");
 }
@@ -26,7 +36,7 @@ async function requireAdminSession() {
     `${API_URL}/admin/books`,
     {
       method: "GET",
-      headers: { Authorization: "Bearer " + token },
+      headers: getFetchHeaders({ Authorization: "Bearer " + token }),
     }
   );
   if (res.status === 401 || res.status === 403) {
@@ -46,8 +56,7 @@ async function fetchBook() {
     const token = getToken();
     const res = await fetch(
       `${API_URL}/admin/books/${id_buku}`,
-
-      { headers: { Authorization: "Bearer " + token } }
+      { headers: getFetchHeaders({ Authorization: "Bearer " + token }) }
     );
 
     if (!res.ok) {
@@ -102,16 +111,11 @@ form.addEventListener("submit", async (e) => {
     const res = await fetch(
       `${API_URL}/admin/books/${id_buku}`,
       {
-        headers: {
-          "ngrok-skip-browser-warning": "true"
-        }
-      },
-      {
         method: "PUT",
-        headers: {
+        headers: getFetchHeaders({
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
-        },
+        },),
         body: JSON.stringify(dataBuku),
       }
     );
