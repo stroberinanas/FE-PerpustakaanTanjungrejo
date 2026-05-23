@@ -25,7 +25,8 @@ async function requireAdminSession() {
   }
   const res = await fetch(`${API_URL}/books`,
     {
-      method: "GET", headers: getFetchHeaders({ Authorization: "Bearer " + token }),
+      method: "GET", headers:
+        { Authorization: "Bearer " + token },
     }
 
   );
@@ -61,7 +62,7 @@ async function kembalikan(id) {
         `${API_URL}/admin/history/${id}`,
         {
           method: "PUT",
-          headers: getFetchHeaders({ Authorization: "Bearer " + token }),
+          headers: { Authorization: "Bearer " + token },
         }
       );
       if (res.status === 401 || res.status === 403) {

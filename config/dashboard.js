@@ -8,12 +8,12 @@ let kategoriList = [];
 // CORS bypass (ngrok)
 const isVercel = window.location.hostname.includes('vercel.app');
 
-function getFetchHeaders(extraHeaders = {}) {
-  return {
-    ...extraHeaders,
-    ...(isVercel ? { "ngrok-skip-browser-warning": "true" } : {})
-  };
-}
+// function getFetchHeaders(extraHeaders = {}) {
+//   return {
+//     ...extraHeaders,
+//     ...(isVercel ? { "ngrok-skip-browser-warning": "true" } : {})
+//   };
+// }
 
 // Helper: Ambil token
 function getToken() {
@@ -31,7 +31,7 @@ async function requireAdminSession() {
     `${API_URL}/admin/books`,
     {
       method: "GET",
-      headers: getFetchHeaders({ Authorization: "Bearer " + token }),
+      headers: { Authorization: "Bearer " + token },
     }
   );
 
@@ -117,7 +117,7 @@ async function fetchKategori() {
     const res = await fetch(
       `${API_URL}/admin/categories`,
       {
-        headers: getFetchHeaders({ Authorization: "Bearer " + token }),
+        headers: { Authorization: "Bearer " + token },
       });
 
     if (res.status === 401 || res.status === 403) {
@@ -156,7 +156,7 @@ async function hapusBuku(id) {
         `${API_URL}/admin/books/${id}`,
         {
           method: "DELETE",
-          headers: getFetchHeaders({ Authorization: "Bearer " + token }),
+          headers: { Authorization: "Bearer " + token },
         }
       );
       if (res.status === 401 || res.status === 403) {

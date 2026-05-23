@@ -29,12 +29,12 @@ const API_URL = "https://lunchbox-overripe-heroism.ngrok-free.dev";
 // CORS bypass (ngrok)
 const isVercel = window.location.hostname.includes('vercel.app');
 
-function getFetchHeaders(extraHeaders = {}) {
-    return {
-        ...extraHeaders,
-        ...(isVercel ? { "ngrok-skip-browser-warning": "true" } : {})
-    };
-}
+// function getFetchHeaders(extraHeaders = {}) {
+//     return {
+//         ...extraHeaders,
+//         ...(isVercel ? { "ngrok-skip-browser-warning": "true" } : {})
+//     };
+// }
 
 function getCategoryIcon(category) {
     return categoryIcons[category] || "📚";
@@ -49,9 +49,7 @@ function normalizeCategory(category) {
 
 async function fetchBooks() {
     try {
-        const res = await fetch(`${API_URL}/books`, {
-            headers: getFetchHeaders(),
-        });
+        const res = await fetch(`${API_URL}/books`);
         const data = await res.json();
 
         allBooks = data;

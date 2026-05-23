@@ -4,12 +4,12 @@ const API_URL = "https://lunchbox-overripe-heroism.ngrok-free.dev";
 // CORS bypass (ngrok)
 const isVercel = window.location.hostname.includes('vercel.app');
 
-function getFetchHeaders(extraHeaders = {}) {
-  return {
-    ...extraHeaders,
-    ...(isVercel ? { "ngrok-skip-browser-warning": "true" } : {})
-  };
-}
+// function getFetchHeaders(extraHeaders = {}) {
+//   return {
+//     ...extraHeaders,
+//     ...(isVercel ? { "ngrok-skip-browser-warning": "true" } : {})
+//   };
+// }
 
 document.getElementById("loginForm").addEventListener("submit", async function (e) {
   e.preventDefault();
@@ -30,7 +30,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
       `${API_URL}/admin/login`,
       {
         method: "POST",
-        headers: getFetchHeaders({ "Content-Type": "application/json" }),
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       }
     );

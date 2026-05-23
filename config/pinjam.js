@@ -38,7 +38,7 @@ async function requireAdminSession() {
 
     {
       method: "GET",
-      headers: getFetchHeaders({ Authorization: "Bearer " + token }),
+      headers: { Authorization: "Bearer " + token },
     }
   );
   if (res.status === 401 || res.status === 403) {
@@ -59,7 +59,7 @@ async function loadBook() {
     const res = await fetch(
       `${API_URL}/admin/books/${id_buku}`,
       {
-        headers: getFetchHeaders({ Authorization: "Bearer " + token }),
+        headers: { Authorization: "Bearer " + token },
       }
     );
 
@@ -119,10 +119,10 @@ form.addEventListener("submit", async (e) => {
       `${API_URL}/admin/pinjam`,
       {
         method: "POST",
-        headers: getFetchHeaders({
+        headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
-        }),
+        },
         body: JSON.stringify(peminjaman),
       }
     );
